@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Telemetrica</title>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+        <script>    
+            function init(){
+                    var socket=io();
+                    socket.on('lectura',function(data){
+                        document.getElementById("medida").value=data;
+                        if(data==0){
+                            var neutro="Neutro";
+                            document.getElementById("alerta").value=neutro;
+                            document.getElementById("semaforo").src="nivel_4.png";
+                        }
+                        if(data<30){
+                            var neutro="Normal";
+                            document.getElementById("alerta").value=neutro;
+                            document.getElementById("semaforo").src="nivel_3.png";
+                        }
+                        if(data<60 && data>=30){
+                            var neutro="Alto";
+                            document.getElementById("alerta").value=neutro;
+                            document.getElementById("semaforo").src="nivel_2.png";
+                        }
+                        if(data<=90 && data>=60){
+                            var neutro="Muy alto";
+                            document.getElementById("alerta").value=neutro;
+                            document.getElementById("semaforo").src="nivel_1.png";
+                        }
+                    });
+
+            }
+        </script>
+    
+    <body>
+        <body bgcolor="#D9D9D9">
+
+        <h1><center>Monitoreo</center></h1>
+        <h2><center>Autores: Luis Giadach/Guillermo Gonzalez/Alejandro Vera</center></h2>
+        <h3><center>Docente: Hector Reyes</center></h>
+            <center><img src="logo_ua.png" style='width:300px;height:139px;'></center>
+       
+        <p>
+            <h3>Medicion de Nivel de Agua</h3>
+            Sensor 1(medida):<input id="medida" size="10">
+            Condicion de alerta:<input id="alerta" size="10">
+
+        <p>
+            <center><img src="nivel_4.png" input type="image" id="semaforo" style='width:300px;height:139px;'></center>
+            <p>
+                <center><input type="button" onclick="init()" value="Verificar nivel de agua"></center>
+      
+
+    </body>
+</html>
